@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cálculo de Ingreso de Profesor</title>
+</head>
+<body>
+    <label for="nombre">Nombre del profesor contratado:</label>
+    <input type="text" id="nombre"><br>
+    <label for="bono">Monto del bono:</label>
+    <input type="number" id="bono"><br>
+    <label for="horas">Cantidad de horas:</label>
+    <input type="number" id="horas"><br>
+    <button onclick="calcularIngreso()">Calcular Ingreso</button>
+    <p id="resultado"></p>
+
+    <script>
+        class Cl_profesor {
+            constructor(nombre, bono) {
+                this.nombre = nombre;
+                this.bono = bono;
+            }
+        }
+
+        class Cl_fijo extends Cl_profesor {
+            constructor(nombre, bono, sueldo) {
+                super(nombre, bono);
+                this.sueldo = sueldo;
+            }
+        }
+
+        class Cl_contratado extends Cl_profesor {
+            constructor(nombre, bono, horas) {
+                super(nombre, bono);
+                this.horas = horas;
+                this.valorHora = 10;
+            }
+
+            calcularIngreso() {
+                return this.bono + (this.horas * this.valorHora);
+            }
+        }
+
+        function calcularIngreso() {
+            const nombre = document.getElementById('nombre').value;
+            const bono = parseInt(document.getElementById('bono').value);
+            const horas = parseInt(document.getElementById('horas').value);
+
+            const profesorContratado = new Cl_contratado(nombre, bono, horas);
+            const ingresoTotal = profesorContratado.calcularIngreso();
+
+            document.getElementById('resultado').textContent = `Ingreso total del profesor ${nombre}: $${ingresoTotal}`;
+        }
+    </script>
+</body>
+</html>
